@@ -34,15 +34,16 @@ class Task {
     return _creationTime;
   }
 
-  void addSubtask(
-      String name, String? description, DateTime? dueDate, int? priority) {
+  void addSubtask(String name, String? description, DateTime? dueDate,
+      int? priority, bool isComplete) {
     subtasks ??= [];
     Task subTask = Task(
         id: id,
         name: name,
         description: description,
         dueDate: dueDate,
-        priority: priority ?? 0);
+        priority: priority ?? 0,
+        isComplete: isComplete);
     subtasks!.add(subTask);
   }
 
