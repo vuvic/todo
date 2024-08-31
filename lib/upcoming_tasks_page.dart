@@ -62,7 +62,8 @@ class _TasksForDateColumnState extends State<TasksForDateColumn> {
     return taskProvider.tasks.where((task) {
       return task.dueDate?.year == columnDate.year &&
           task.dueDate?.month == columnDate.month &&
-          task.dueDate?.day == columnDate.day;
+          task.dueDate?.day == columnDate.day &&
+          task.isComplete == false;
     }).toList();
   }
 
