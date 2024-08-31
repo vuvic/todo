@@ -32,6 +32,7 @@ class _TodoState extends State<Todo> {
     return MaterialApp(
       theme: ThemeData.dark(),
       home: Scaffold(
+        appBar: AppBar(),
         body: Row(
           children: [
             SafeArea(
