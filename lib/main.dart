@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'upcoming_tasks_page.dart';
+import 'package:provider/provider.dart';
+import 'task_provider.dart';
 
 void main() {
-  runApp(const Todo());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => TaskProvider(),
+      child: Todo(),
+    ),
+  );
 }
 
 class Todo extends StatefulWidget {
