@@ -12,7 +12,7 @@ class UpcomingTasksPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Upcoming Tasks"),
+        title: const Text("Upcoming Tasks"),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
