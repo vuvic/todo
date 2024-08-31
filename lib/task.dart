@@ -14,6 +14,7 @@ class Task {
     this.description,
     this.dueDate,
     this.priority = 0,
+    required bool isComplete,
   }) : _creationTime = DateTime.now();
 
   void updateTask(
