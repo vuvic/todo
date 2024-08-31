@@ -41,6 +41,14 @@ class _TodoState extends State<Todo> {
       theme: ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FloatingActionButton(
+            shape: const CircleBorder(),
+            onPressed: () {}, // needs behavior for creating a task
+            child: const Icon(Icons.add),
+          ),
+        ),
         body: Row(
           children: [
             SafeArea(
