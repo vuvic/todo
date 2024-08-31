@@ -30,9 +30,11 @@ class _TodoState extends State<Todo> {
   ];
 
   void _onDestinationSelected(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    setState(
+      () {
+        _selectedIndex = index;
+      },
+    );
   }
 
   @override
