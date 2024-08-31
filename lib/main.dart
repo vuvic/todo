@@ -17,7 +17,7 @@ class _TodoState extends State<Todo> {
 
   final List<Widget> _pages = [
     const UpcomingTasksPage(),
-    const Center(child: Text('Tasks Page')),
+    const Center(child: Text('Calendar Page')),
     const Center(child: Text('Settings Page')),
   ];
 
