@@ -7,7 +7,7 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => TaskProvider(),
-      child: Todo(),
+      child: const Todo(),
     ),
   );
 }
@@ -24,6 +24,7 @@ class _TodoState extends State<Todo> {
 
   final List<Widget> _pages = [
     const UpcomingTasksPage(),
+    const Center(child: Text('Pomodoro Timer Page')),
     const Center(child: Text('Calendar Page')),
     const Center(child: Text('Settings Page')),
   ];
@@ -49,6 +50,10 @@ class _TodoState extends State<Todo> {
                 destinations: const <NavigationRailDestination>[
                   NavigationRailDestination(
                     icon: Icon(Icons.task_alt),
+                    label: Text("Tasks"),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.timer),
                     label: Text("Tasks"),
                   ),
                   NavigationRailDestination(
