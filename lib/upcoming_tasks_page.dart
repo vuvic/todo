@@ -55,7 +55,7 @@ class _TasksForDateColumnState extends State<TasksForDateColumn> {
   late DateTime columnDate;
   late String dayName;
   late String formattedColumnDateStr;
-  late List<Task> tasksForDate; // need to calculate somehow
+  late List<Task> tasksForDate;
 
   List<Task> _getTasksForDate(BuildContext context) {
     final taskProvider = Provider.of<TaskProvider>(context, listen: false);
