@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'ui/screens/upcoming_tasks_page.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'providers/task_provider.dart';
+import 'ui/screens/upcoming_tasks_page.dart';
+import 'services/tasK_api_service.dart';
 
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => TaskProvider(),
+      create: (context) => TaskProvider(
+        apiService: TaskApiService(baseUrl: dotenv.env['BASE_URL']!),
+      ),
       child: const Todo(),
     ),
   );

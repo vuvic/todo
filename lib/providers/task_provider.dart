@@ -1,7 +1,9 @@
 import '../models/task.dart';
+import '../services/tasK_api_service.dart';
 import 'package:flutter/material.dart';
 
 class TaskProvider with ChangeNotifier {
+  final TaskApiService apiService;
   final List<Task> _tasks = [
     Task(
       id: 1,
@@ -164,6 +166,8 @@ class TaskProvider with ChangeNotifier {
       isComplete: false,
     ),
   ];
+
+  TaskProvider({required this.apiService});
 
   List<Task> get tasks => _tasks;
 
