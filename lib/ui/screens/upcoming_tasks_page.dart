@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'task_card.dart';
-import 'task.dart';
+import '../widgets/task_card.dart';
+import '../../models/task.dart';
 import 'package:provider/provider.dart';
-import 'task_provider.dart';
+import '../../providers/task_provider.dart';
 
 class UpcomingTasksPage extends StatelessWidget {
   const UpcomingTasksPage({super.key});

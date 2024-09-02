@@ -1,4 +1,4 @@
-import 'task.dart';
+import '../models/task.dart';
 import 'package:flutter/material.dart';
 
 class TaskProvider with ChangeNotifier {
@@ -9,6 +9,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Finish the UI for the main screen',
       dueDate: DateTime.now(),
       priority: 1,
+      isComplete: true,
     ),
     Task(
       id: 2,
@@ -16,13 +17,15 @@ class TaskProvider with ChangeNotifier {
       description: 'Buy ingredients for dinner',
       dueDate: DateTime.now(),
       priority: 2,
+      isComplete: false,
     ),
     Task(
       id: 3,
       name: 'Team Meeting',
       description: 'Discuss project roadmap',
-      dueDate: DateTime.now().add(Duration(days: 1)),
+      dueDate: DateTime.now().add(const Duration(days: 1)),
       priority: 1,
+      isComplete: false,
     ),
     Task(
       id: 4,
@@ -30,6 +33,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Share experience with Flutter',
       dueDate: DateTime.now().add(Duration(days: 1)),
       priority: 3,
+      isComplete: false,
     ),
     Task(
       id: 5,
@@ -37,6 +41,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Read chapter 5 of "Clean Code"',
       dueDate: DateTime.now().add(Duration(days: 1)),
       priority: 2,
+      isComplete: false,
     ),
     Task(
       id: 6,
@@ -44,6 +49,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Annual check-up',
       dueDate: DateTime.now().add(Duration(days: 2)),
       priority: 1,
+      isComplete: false,
     ),
     Task(
       id: 7,
@@ -51,6 +57,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Leg day at the gym',
       dueDate: DateTime.now().add(Duration(days: 2)),
       priority: 2,
+      isComplete: false,
     ),
     Task(
       id: 8,
@@ -58,6 +65,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Submit the operating systems assignment',
       dueDate: DateTime.now().add(Duration(days: 3)),
       priority: 1,
+      isComplete: false,
     ),
     Task(
       id: 9,
@@ -65,6 +73,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Research destinations and book hotels',
       dueDate: DateTime.now().add(Duration(days: 3)),
       priority: 3,
+      isComplete: false,
     ),
     Task(
       id: 10,
@@ -72,6 +81,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Prepare slides for the team meeting',
       dueDate: DateTime.now().add(Duration(days: 4)),
       priority: 2,
+      isComplete: false,
     ),
     Task(
       id: 11,
@@ -79,6 +89,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Spend time with family',
       dueDate: DateTime.now().add(Duration(days: 5)),
       priority: 1,
+      isComplete: false,
     ),
     Task(
       id: 12,
@@ -86,6 +97,7 @@ class TaskProvider with ChangeNotifier {
       description: 'General cleaning and tidying up',
       dueDate: DateTime.now().add(Duration(days: 5)),
       priority: 2,
+      isComplete: false,
     ),
     Task(
       id: 13,
@@ -93,6 +105,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Go over the notes for the last lecture',
       dueDate: DateTime.now().add(Duration(days: 6)),
       priority: 1,
+      isComplete: false,
     ),
     Task(
       id: 14,
@@ -100,6 +113,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Prepare meals and snacks for the upcoming week',
       dueDate: DateTime.now().add(Duration(days: 6)),
       priority: 2,
+      isComplete: false,
     ),
     Task(
       id: 15,
@@ -107,6 +121,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Finish the last chapters of "Clean Code"',
       dueDate: DateTime.now().add(Duration(days: 6)),
       priority: 3,
+      isComplete: false,
     ),
     Task(
       id: 16,
@@ -114,6 +129,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Plan out tasks and events for the upcoming week',
       dueDate: DateTime.now().add(Duration(days: 7)),
       priority: 1,
+      isComplete: false,
     ),
     Task(
       id: 17,
@@ -121,6 +137,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Restock groceries for the week',
       dueDate: DateTime.now().add(Duration(days: 7)),
       priority: 2,
+      isComplete: false,
     ),
     Task(
       id: 18,
@@ -128,6 +145,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Wash and fold clothes',
       dueDate: DateTime.now().add(Duration(days: 7)),
       priority: 3,
+      isComplete: false,
     ),
     Task(
       id: 19,
@@ -135,6 +153,7 @@ class TaskProvider with ChangeNotifier {
       description: 'Get an oil change and tire rotation',
       dueDate: DateTime.now().add(Duration(days: 7)),
       priority: 1,
+      isComplete: false,
     ),
     Task(
       id: 20,
@@ -142,12 +161,19 @@ class TaskProvider with ChangeNotifier {
       description: 'Analyze performance and make adjustments',
       dueDate: DateTime.now().add(Duration(days: 7)),
       priority: 3,
+      isComplete: false,
     ),
   ];
 
   List<Task> get tasks => _tasks;
 
-  void addTask(Task task) {
+  Future<void> loadTasks() async {
+    // implement load tasks data
+    notifyListeners();
+  }
+
+  Future<void> addTask(Task task) async {
+    // implement add task data
     _tasks.add(task);
     notifyListeners();
   }
