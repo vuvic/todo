@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'upcoming_tasks_page.dart';
+import 'ui/screens/upcoming_tasks_page.dart';
 import 'package:provider/provider.dart';
-import 'task_provider.dart';
+import 'providers/task_provider.dart';
 
 void main() {
   runApp(
