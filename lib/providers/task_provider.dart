@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class TaskProvider with ChangeNotifier {
   final TaskApiService apiService;
-  final List<Task> _tasks = [
+  List<Task> _tasks = [
     Task(
       id: 1,
       name: 'Complete Flutter Project',
@@ -172,23 +172,30 @@ class TaskProvider with ChangeNotifier {
   List<Task> get tasks => _tasks;
 
   Future<void> loadTasks() async {
-    // implement load tasks data
+    _tasks = await apiService.fetchTasks();
     notifyListeners();
   }
 
   Future<void> addTask(Task task) async {
-    // implement add task data
+    // creates a task --> database assigns an id --> returns created task with id
+    task = await apiService.createTask(task);
+
     _tasks.add(task);
     notifyListeners();
   }
 
-  void updateTask(int index, Task task) {
-    _tasks[index] = task;
-    notifyListeners();
+  Future<void> updateTask(Task task) async {
+    await apiService.updateTask(task);
+    int index = _tasks.indexWhere((task) => task.id == task.id);
+    if (index != -1) {
+      _tasks[index] = task;
+      notifyListeners();
+    }
   }
 
-  void removeTask(int index) {
-    _tasks.removeAt(index);
+  Future<void> deleteTask(int id) async {
+    await apiService.deleteTask(id);
+    _tasks.removeWhere((task) => task.id == id);
     notifyListeners();
   }
 }

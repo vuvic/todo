@@ -5,12 +5,20 @@ import 'providers/task_provider.dart';
 import 'ui/screens/upcoming_tasks_page.dart';
 import 'services/tasK_api_service.dart';
 
-void main() {
+void main() async {
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    print("Error loading .env file: $e");
+  }
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => TaskProvider(
-        apiService: TaskApiService(baseUrl: dotenv.env['BASE_URL']!),
-      ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (context) => TaskProvider(
+                  apiService: TaskApiService(baseUrl: dotenv.env['BASE_URL']!),
+                )),
+      ],
       child: const Todo(),
     ),
   );
