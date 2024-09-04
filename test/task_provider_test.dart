@@ -20,7 +20,7 @@ void main() {
       taskProvider = TaskProvider(apiService: mockApiService);
     });
 
-    test('should fetch tasks from the API', () async {
+    test('Fetch a task from the API', () async {
       when(mockApiService.fetchTasks()).thenAnswer(
         (_) async => [
           Task(
@@ -38,7 +38,38 @@ void main() {
 
       expect(taskProvider.tasks.isNotEmpty, true);
       expect(taskProvider.tasks.length, 1);
-      expect(taskProvider.tasks.first.name, 'Mock Task 1');
+      expect(taskProvider.tasks[0].id, 1);
+    });
+    test('Fetch multiple tasks from the API', () async {
+      when(mockApiService.fetchTasks()).thenAnswer(
+        (_) async => [
+          Task(
+            id: 1,
+            name: 'Mock Task 1',
+            description: 'This is a mock task',
+            dueDate: DateTime.now(),
+            priority: 1,
+            isComplete: false,
+          ),
+          Task(
+            id: 2,
+            name: 'Mock Task 2',
+            description: 'This is another mock task',
+            dueDate: DateTime.now().add(const Duration(days: 2)),
+            priority: 1,
+            isComplete: true,
+          ),
+        ],
+      );
+
+      await taskProvider.loadTasks();
+
+      expect(taskProvider.tasks.isNotEmpty, true);
+      expect(taskProvider.tasks.length, 2);
+      expect(taskProvider.tasks[0].id, 1);
+      expect(taskProvider.tasks[1].id, 2);
+      expect(taskProvider.tasks[0].name, 'Mock Task 1');
+      expect(taskProvider.tasks[1].name, 'Mock Task 2');
     });
   });
 }
