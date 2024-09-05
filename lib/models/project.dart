@@ -15,7 +15,7 @@ class Project {
         _creationTime = DateTime.now();
 
   String get name => _name;
-  int get id => id;
+  int? get id => _id;
   List<Task> get tasks => _tasks;
   List<Project> get subProjects => _subProjects;
   DateTime get creationTime => _creationTime;
