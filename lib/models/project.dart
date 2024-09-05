@@ -10,14 +10,6 @@ class Project extends WorkItem<Project> {
 
   DateTime get creationTime => super.creationTime;
 
-  @override
-  set name(String name) {
-    if (name.isEmpty) {
-      throw ArgumentError("Name cannot be empty.");
-    }
-    super.name = name;
-  }
-
   void addTask(Task task) {
     if (_tasks.contains(task)) {
       throw ArgumentError(
@@ -28,27 +20,5 @@ class Project extends WorkItem<Project> {
 
   void removeTaskById(int id) {
     _tasks.removeWhere((task) => task.id == id);
-  }
-
-  @override
-  void addChild(Project child) {
-    if (this == child) {
-      throw ArgumentError("A project cannot be a child of itself.");
-    }
-
-    if (super.hasCircularReference(child)) {
-      throw ArgumentError("Circular reference detected.");
-    }
-
-    if (super.children.contains(child)) {
-      throw ArgumentError("child already exists.");
-    }
-
-    super.children.add(child);
-  }
-
-  @override
-  void removechildById(int id) {
-    super.children.removeWhere((child) => child.id == id);
   }
 }
