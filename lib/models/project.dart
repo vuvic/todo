@@ -16,7 +16,7 @@ class Project {
 
   String get name => _name;
   int get id => id;
-  List<Task>? get tasks => _tasks;
+  List<Task> get tasks => _tasks;
   List<Project> get subProjects => _subProjects;
   DateTime get creationTime => _creationTime;
 
