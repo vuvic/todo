@@ -1,30 +1,21 @@
 import './task.dart';
+import './work_item.dart';
 
-class Project {
-  int? _id;
-  String _name;
+class Project extends WorkItem<Project> {
   final List<Task> _tasks = [];
-  final List<Project> _children = [];
-  final DateTime _creationTime;
 
-  Project({
-    required String name,
-    int? id,
-  })  : _name = name,
-        _id = id,
-        _creationTime = DateTime.now();
+  Project({required super.name, super.id});
 
-  String get name => _name;
-  int? get id => _id;
   List<Task> get tasks => _tasks;
-  List<Project> get children => _children;
-  DateTime get creationTime => _creationTime;
 
+  DateTime get creationTime => super.creationTime;
+
+  @override
   set name(String name) {
     if (name.isEmpty) {
       throw ArgumentError("Name cannot be empty.");
     }
-    _name = name;
+    super.name = name;
   }
 
   void addTask(Task task) {
@@ -39,31 +30,25 @@ class Project {
     _tasks.removeWhere((task) => task.id == id);
   }
 
-  void addchild(Project child) {
+  @override
+  void addChild(Project child) {
     if (this == child) {
       throw ArgumentError("A project cannot be a child of itself.");
     }
 
-    if (_hasCircularReference(child)) {
+    if (super.hasCircularReference(child)) {
       throw ArgumentError("Circular reference detected.");
     }
 
-    if (_children.contains(child)) {
+    if (super.children.contains(child)) {
       throw ArgumentError("child already exists.");
     }
 
-    _children.add(child);
+    super.children.add(child);
   }
 
-  void removechildByID(int id) {
-    _children.removeWhere((child) => child._id == id);
-  }
-
-  bool _hasCircularReference(Project project) {
-    if (project == this) return true;
-    for (var sub in project._children) {
-      if (_hasCircularReference(sub)) return true;
-    }
-    return false;
+  @override
+  void removechildById(int id) {
+    super.children.removeWhere((child) => child.id == id);
   }
 }
