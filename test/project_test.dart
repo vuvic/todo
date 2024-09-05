@@ -63,6 +63,18 @@ void main() {
       test('Remove a task', () {
         project.addTask(task1);
         project.addTask(task2);
+
+        project.removeTaskById(task1.id!);
+        expect(project.tasks.length, 1);
+      });
+
+      test('Remove multiple tasks', () {
+        project.addTask(task1);
+        project.addTask(task2);
+
+        project.removeTaskById(task1.id!);
+        project.removeTaskById(task2.id!);
+        expect(project.tasks.length, 0);
       });
     },
   );
