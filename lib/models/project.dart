@@ -14,10 +14,11 @@ class Project {
         _id = id,
         _creationTime = DateTime.now();
 
-  DateTime get creationTime => _creationTime;
   String get name => _name;
   int get id => id;
   List<Task>? get tasks => _tasks;
+  List<Project> get subProjects => _subProjects;
+  DateTime get creationTime => _creationTime;
 
   set name(String value) {
     if (name.isEmpty) {
