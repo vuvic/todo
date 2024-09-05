@@ -23,10 +23,10 @@ abstract class WorkItem<T extends WorkItem<T>> {
     _name = name;
   }
 
-  bool hasCircularReference(WorkItem workItem) {
+  bool _hasCircularReference(WorkItem workItem) {
     if (workItem == this) return true;
     for (var sub in workItem._children) {
-      if (hasCircularReference(sub)) return true;
+      if (_hasCircularReference(sub)) return true;
     }
     return false;
   }
@@ -36,7 +36,7 @@ abstract class WorkItem<T extends WorkItem<T>> {
       throw ArgumentError("A project cannot be a child of itself.");
     }
 
-    if (hasCircularReference(child)) {
+    if (_hasCircularReference(child)) {
       throw ArgumentError("Circular reference detected.");
     }
 
