@@ -21,7 +21,7 @@ class Project {
   DateTime get creationTime => _creationTime;
 
   set name(String value) {
-    if (name.isEmpty) {
+    if (value.isEmpty) {
       throw ArgumentError("Name cannot be empty.");
     }
     _name = value;
