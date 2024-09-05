@@ -39,24 +39,24 @@ class Project {
     _tasks.removeWhere((task) => task.id == id);
   }
 
-  void addSubProject(Project subProject) {
-    if (this == subProject) {
-      throw ArgumentError("A project cannot be a subproject of itself.");
+  void addchild(Project child) {
+    if (this == child) {
+      throw ArgumentError("A project cannot be a child of itself.");
     }
 
-    if (_hasCircularReference(subProject)) {
+    if (_hasCircularReference(child)) {
       throw ArgumentError("Circular reference detected.");
     }
 
-    if (_children.contains(subProject)) {
-      throw ArgumentError("Subproject already exists.");
+    if (_children.contains(child)) {
+      throw ArgumentError("child already exists.");
     }
 
-    _children.add(subProject);
+    _children.add(child);
   }
 
-  void removeSubProjectByID(int id) {
-    _children.removeWhere((subProject) => subProject._id == id);
+  void removechildByID(int id) {
+    _children.removeWhere((child) => child._id == id);
   }
 
   bool _hasCircularReference(Project project) {
