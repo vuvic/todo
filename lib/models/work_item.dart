@@ -48,4 +48,18 @@ abstract class WorkItem<T extends WorkItem<T>> {
   void removechildById(int id) {
     _children.removeWhere((child) => child._id == id);
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'creationTime': creationTime.toIso8601String(),
+      'children':
+          _children.map((child) => child.toMap()).toList(), // Map children too
+    };
+  }
+
+  static WorkItem fromMap(Map<String, dynamic> map) {
+    throw UnimplementedError("fromMap should be implemented in subclasses.");
+  }
 }
