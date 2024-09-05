@@ -4,7 +4,7 @@ class Project {
   int? _id;
   String _name;
   final List<Task> _tasks = [];
-  final List<Project> _subProjects = [];
+  final List<Project> _children = [];
   final DateTime _creationTime;
 
   Project({
@@ -17,14 +17,14 @@ class Project {
   String get name => _name;
   int? get id => _id;
   List<Task> get tasks => _tasks;
-  List<Project> get subProjects => _subProjects;
+  List<Project> get children => _children;
   DateTime get creationTime => _creationTime;
 
-  set name(String value) {
-    if (value.isEmpty) {
+  set name(String name) {
+    if (name.isEmpty) {
       throw ArgumentError("Name cannot be empty.");
     }
-    _name = value;
+    _name = name;
   }
 
   void addTask(Task task) {
@@ -48,20 +48,20 @@ class Project {
       throw ArgumentError("Circular reference detected.");
     }
 
-    if (_subProjects.contains(subProject)) {
+    if (_children.contains(subProject)) {
       throw ArgumentError("Subproject already exists.");
     }
 
-    _subProjects.add(subProject);
+    _children.add(subProject);
   }
 
   void removeSubProjectByID(int id) {
-    _subProjects.removeWhere((subProject) => subProject._id == id);
+    _children.removeWhere((subProject) => subProject._id == id);
   }
 
   bool _hasCircularReference(Project project) {
     if (project == this) return true;
-    for (var sub in project._subProjects) {
+    for (var sub in project._children) {
       if (_hasCircularReference(sub)) return true;
     }
     return false;
