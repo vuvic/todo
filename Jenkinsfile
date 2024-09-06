@@ -1,40 +1,35 @@
 pipeline {
     agent any
-
+    
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the latest code from your repository
-                git url: 'git@github.com:ManaRegen/todo.git', branch: 'main'
+                sshagent(['cc2fcf53-376b-4ab5-869b-2df97727dd55']) {
+                    git branch: 'main', url: 'git@github.com:ManaRegen/todo.git'
+                }
             }
         }
-        
-        stage('Install Flutter') {
+        stage('Build') {
             steps {
-                // Install Flutter SDK or ensure it's installed
-                sh '''
-                if ! [ -x "$(command -v flutter)" ]; then
-                    echo "Flutter is not installed, installing..."
-                    git clone https://github.com/flutter/flutter.git -b stable
-                    export PATH="$PATH:$PWD/flutter/bin"
-                fi
-                flutter --version
-                '''
+                sh 'flutter build'
             }
         }
-
-        stage('Flutter Test') {
+        stage('Test') {
             steps {
-                // Run Flutter tests
-                sh 'flutter test'
+                sh 'flutter test --machine > test/results/test-results.xml'
             }
         }
     }
-
+    
     post {
         always {
-            // Archive test results and notify
-            junit '**/test/*.xml'
+            junit 'test/results/test-results.xml'
+        }
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            echo 'Build failed!'
         }
     }
 }
