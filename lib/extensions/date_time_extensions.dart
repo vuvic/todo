@@ -8,6 +8,7 @@ extension DateTimeExtensions on DateTime {
       59,
       59,
       999,
+      999,
     );
   }
 }
