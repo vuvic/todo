@@ -2,11 +2,6 @@ pipeline {
     agent any
     
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'git@github.com:ManaRegen/todo.git'
-            }
-        }
         stage('Build') {
             steps {
                 sh 'flutter build'
