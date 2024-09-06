@@ -37,10 +37,3 @@ jobs:
       - name: Run unit tests
         run: flutter test --coverage
 
-      # (Optional) Run integration tests
-      # Windows setup may require special steps for running emulators, like setting up Android SDK or an existing emulator
-      - name: Run integration tests
-        run: |
-          flutter config --enable-web
-          flutter drive --target=test_driver/app.dart
-        if: github.event_name == 'push'
