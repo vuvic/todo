@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat 'flutter build'
+                sh 'flutter build'
             }
         }
         stage('Test') {
             steps {
-                bat 'flutter test --machine > test/results/test-results.xml'
+                sh 'flutter test --machine > test/results/test-results.xml'
             }
         }
     }
