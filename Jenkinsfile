@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the latest code from your repository
-                git url: 'https://your-repo-url.git', branch: 'main'
+                git url: 'git@github.com:ManaRegen/todo.git', branch: 'main'
             }
         }
         
