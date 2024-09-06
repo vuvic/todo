@@ -4,9 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                sshagent(['cc2fcf53-376b-4ab5-869b-2df97727dd55']) {
-                    git branch: 'main', url: 'git@github.com:ManaRegen/todo.git'
-                }
+                git branch: 'main', url: 'git@github.com:ManaRegen/todo.git'
             }
         }
         stage('Build') {
