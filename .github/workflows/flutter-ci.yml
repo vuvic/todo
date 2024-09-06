@@ -1,6 +1,5 @@
-name: Flutter CI
+name: Flutter CI for Windows
 
-# Define the triggers for when the workflow should run
 on:
   push:
     branches:
@@ -11,29 +10,22 @@ on:
 
 jobs:
   build:
-    # Run on Windows 10 environment
     runs-on: windows-latest
 
-    strategy:
-      matrix:
-        flutter-version: [stable]
-
     steps:
-      # Checkout the code from the repository
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # Set up Flutter on Windows
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ matrix.flutter-version }}
+          channel: stable
 
-      # Run Flutter packages get to install dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # Run unit tests
       - name: Run unit tests
-        run: flutter test --coverage
+        run: flutter test
 
+      - name: Build Windows app
+        run: flutter build windows
