@@ -29,7 +29,6 @@ void main() {
             description: 'This is a mock task',
             dueDate: DateTime.now(),
             priority: 1,
-            isComplete: false,
           ),
         ],
       );
@@ -49,7 +48,6 @@ void main() {
             description: 'This is a mock task',
             dueDate: DateTime.now(),
             priority: 1,
-            isComplete: false,
           ),
           Task(
             id: 2,
@@ -57,7 +55,6 @@ void main() {
             description: 'This is another mock task',
             dueDate: DateTime.now().add(const Duration(days: 2)),
             priority: 1,
-            isComplete: true,
           ),
         ],
       );

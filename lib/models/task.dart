@@ -1,83 +1,114 @@
-class Task {
-  int? id;
-  String name;
-  String? description;
-  final DateTime _creationTime;
-  DateTime? dueDate;
-  bool isComplete = false;
-  int priority;
-  List<Task>? subtasks;
+import './work_item.dart';
+
+class Task extends WorkItem<Task> {
+  String _description;
+  DateTime? _dueDate;
+  DateTime? _plannedCompletionDate;
+  int _priority;
+  bool _isComplete;
 
   Task({
-    this.id,
-    required this.name,
-    this.description,
-    this.dueDate,
-    this.priority = 0,
-    required bool isComplete,
-  }) : _creationTime = DateTime.now();
+    required super.name,
+    super.id,
+    String? description,
+    DateTime? dueDate,
+    int priority = 0,
+  })  : _description = (description == null) ? "" : description,
+        _isComplete = false,
+        _priority = (priority >= 0 && priority <= 5)
+            ? priority
+            : throw ArgumentError('Priority must be between 0 and 5'),
+        _dueDate = (dueDate == null || dueDate.isAfter(DateTime.now()))
+            ? dueDate
+            : throw ArgumentError('Due date must be after the current time');
 
-  void updateTask(
-      {String? newName, String? newDescription, DateTime? newDueDate}) {
-    if (newName != null) {
-      name = newName;
+  String get description => _description;
+  DateTime? get dueDate => _dueDate;
+  DateTime? get plannedCompletionDate => _plannedCompletionDate;
+  int get priority => _priority;
+  bool get isComplete => _isComplete;
+
+  set description(String description) {
+    _description = description;
+  }
+
+  set dueDate(DateTime? date) {
+    if (date == null) {
+      _dueDate = null;
+      _plannedCompletionDate = null;
+      return;
     }
-    if (newDescription != null) {
-      description = newDescription;
+
+    if (DateTime.now().isAfter(date)) {
+      throw ArgumentError('Due date must be after the current time');
     }
-    if (newDueDate != null) {
-      dueDate = newDueDate;
+
+    if (_plannedCompletionDate != null &&
+        _plannedCompletionDate!.isAfter(date)) {
+      throw ArgumentError(
+          'Planned completion date must be before or on the due date');
+    }
+
+    _dueDate = date;
+  }
+
+  set plannedCompletionDate(DateTime? newPlannedDate) {
+    if (newPlannedDate == null) {
+      _plannedCompletionDate = newPlannedDate;
+      return;
+    }
+    if (newPlannedDate.isBefore(DateTime.now())) {
+      throw ArgumentError(
+          'Planned completion date must be after the current time');
+    }
+    if (newPlannedDate.isAfter(DateTime.now())) {
+      throw ArgumentError(
+          'Planned completion date must be before or on the due date');
     }
   }
 
-  DateTime get creationTime {
-    return _creationTime;
+  set priority(int value) {
+    if (value < 0 || value > 5) {
+      throw ArgumentError('Priority must be between 0 and 5');
+    }
+    _priority = value;
   }
 
-  void addSubtask(String name, String? description, DateTime? dueDate,
-      int? priority, bool isComplete) {
-    subtasks ??= [];
-    Task subTask = Task(
-        id: id,
-        name: name,
-        description: description,
-        dueDate: dueDate,
-        priority: priority ?? 0,
-        isComplete: isComplete);
-    subtasks!.add(subTask);
-  }
-
-  void markAsComplete() {
-    isComplete = true;
-  }
-
-  void markAsIncomplete() {
-    isComplete = false;
+  set isComplete(bool value) {
+    _isComplete = value;
   }
 
   @override
-  String toString() {
-    return '$name: $description (Created on: $_creationTime, Due: ${dueDate ?? 'No due date'}, isComplete: $isComplete)';
-  }
-
   Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'creationTime': _creationTime,
-      'dueDate': dueDate,
-      'isComplete': isComplete ? 1 : 0,
-      'priority': priority,
-    };
+    Map<String, dynamic> map = super.toMap();
+
+    map['description'] = _description;
+    map['dueDate'] = _dueDate?.toIso8601String();
+    map['plannedCompletionDate'] = plannedCompletionDate?.toIso8601String();
+    map['priority'] = _priority;
+    map['isComplete'] = _isComplete;
+
+    return map;
   }
 
   factory Task.fromMap(Map<String, dynamic> map) {
-    return Task(
-      id: map['id'],
-      name: map['name'],
-      dueDate: map['dueDate'],
-      isComplete: map['isComplete'] == 1,
-      priority: map['priority'],
+    Task task = Task(
+      id: map['id'] as int,
+      name: map['name'] as String,
+      description: map['description'] as String,
+      dueDate: DateTime.parse(map['dueDate'] as String),
+      priority: map['priority'] as int,
     );
+
+    List<Task> childrenList = (map['children'] as List<dynamic>?)
+            ?.map((childMap) => Task.fromMap(childMap as Map<String, dynamic>))
+            .toList() ??
+        [];
+
+    for (Task child in childrenList) {
+      task.addChild(child);
+    }
+
+    return task;
   }
 }

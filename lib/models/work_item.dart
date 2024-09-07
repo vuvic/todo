@@ -43,6 +43,8 @@ abstract class WorkItem<T extends WorkItem<T>> {
     if (_children.contains(child)) {
       throw ArgumentError("child already exists.");
     }
+
+    _children.add(child);
   }
 
   void removechildById(int id) {
@@ -59,7 +61,7 @@ abstract class WorkItem<T extends WorkItem<T>> {
     };
   }
 
-  static WorkItem fromMap(Map<String, dynamic> map) {
-    throw UnimplementedError("fromMap should be implemented in subclasses.");
+  factory WorkItem.fromMap(Map<String, dynamic> map) {
+    throw UnimplementedError('This method should be overridden by subclasses.');
   }
 }
