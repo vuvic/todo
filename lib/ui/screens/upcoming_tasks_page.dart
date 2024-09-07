@@ -3,6 +3,7 @@ import '../widgets/task_card.dart';
 import '../../models/task.dart';
 import 'package:provider/provider.dart';
 import '../../providers/task_provider.dart';
+import '../../extensions/date_time_extensions.dart';
 
 class UpcomingTasksPage extends StatelessWidget {
   const UpcomingTasksPage({super.key});
@@ -71,7 +72,7 @@ class _TasksForDateColumnState extends State<TasksForDateColumn> {
   void initState() {
     super.initState();
     columnDate = DateTime.now().add(Duration(days: widget.index));
-    dayName = _getDayName(columnDate);
+    dayName = columnDate.getDayName();
     formattedColumnDateStr = "$dayName (${columnDate.month}/${columnDate.day})";
     tasksForDate = _getTasksForDate(context);
   }
@@ -102,17 +103,4 @@ class _TasksForDateColumnState extends State<TasksForDateColumn> {
       ),
     );
   }
-}
-
-String _getDayName(DateTime date) {
-  const List<String> dayNames = [
-    'Monday', // 1
-    'Tuesday', // 2
-    'Wednesday', // 3
-    'Thursday', // 4
-    'Friday', // 5
-    'Saturday', // 6
-    'Sunday', // 7
-  ];
-  return dayNames[date.weekday - 1];
 }
