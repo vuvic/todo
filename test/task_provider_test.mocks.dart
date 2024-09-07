@@ -51,43 +51,57 @@ class MockTaskApiService extends _i1.Mock implements _i3.TaskApiService {
       ) as String);
 
   @override
-  _i5.Future<List<_i2.Task>> fetchTasks() => (super.noSuchMethod(
+  set baseUrl(String? _baseUrl) => super.noSuchMethod(
+        Invocation.setter(
+          #baseUrl,
+          _baseUrl,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i5.Future<List<_i2.Task>> fetch() => (super.noSuchMethod(
         Invocation.method(
-          #fetchTasks,
+          #fetch,
           [],
         ),
         returnValue: _i5.Future<List<_i2.Task>>.value(<_i2.Task>[]),
       ) as _i5.Future<List<_i2.Task>>);
 
   @override
-  _i5.Future<_i2.Task> createTask(_i2.Task? task) => (super.noSuchMethod(
+  _i5.Future<_i2.Task> create(_i2.Task? item) => (super.noSuchMethod(
         Invocation.method(
-          #createTask,
-          [task],
+          #create,
+          [item],
         ),
         returnValue: _i5.Future<_i2.Task>.value(_FakeTask_0(
           this,
           Invocation.method(
-            #createTask,
-            [task],
+            #create,
+            [item],
           ),
         )),
       ) as _i5.Future<_i2.Task>);
 
   @override
-  _i5.Future<void> updateTask(_i2.Task? task) => (super.noSuchMethod(
+  _i5.Future<_i2.Task> update(_i2.Task? item) => (super.noSuchMethod(
         Invocation.method(
-          #updateTask,
-          [task],
+          #update,
+          [item],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i5.Future<_i2.Task>.value(_FakeTask_0(
+          this,
+          Invocation.method(
+            #update,
+            [item],
+          ),
+        )),
+      ) as _i5.Future<_i2.Task>);
 
   @override
-  _i5.Future<void> deleteTask(int? id) => (super.noSuchMethod(
+  _i5.Future<void> delete(int? id) => (super.noSuchMethod(
         Invocation.method(
-          #deleteTask,
+          #delete,
           [id],
         ),
         returnValue: _i5.Future<void>.value(),

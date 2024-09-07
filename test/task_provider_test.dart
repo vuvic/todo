@@ -18,11 +18,11 @@ void main() {
 
     setUp(() {
       mockApiService = MockTaskApiService();
-      taskProvider = TaskProvider(apiService: mockApiService);
+      taskProvider = TaskProvider(mockApiService);
     });
 
     test('Fetch a task from the API', () async {
-      when(mockApiService.fetchTasks()).thenAnswer(
+      when(mockApiService.fetch()).thenAnswer(
         (_) async => [
           Task(
             id: 1,
@@ -34,14 +34,14 @@ void main() {
         ],
       );
 
-      await taskProvider.loadTasks();
+      await taskProvider.fetchAll();
 
       expect(taskProvider.tasks.isNotEmpty, true);
       expect(taskProvider.tasks.length, 1);
       expect(taskProvider.tasks[0].id, 1);
     });
     test('Fetch multiple tasks from the API', () async {
-      when(mockApiService.fetchTasks()).thenAnswer(
+      when(mockApiService.fetch()).thenAnswer(
         (_) async => [
           Task(
             id: 1,
@@ -60,7 +60,7 @@ void main() {
         ],
       );
 
-      await taskProvider.loadTasks();
+      await taskProvider.fetchAll();
 
       expect(taskProvider.tasks.isNotEmpty, true);
       expect(taskProvider.tasks.length, 2);
