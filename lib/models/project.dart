@@ -6,7 +6,7 @@ class Project extends WorkItem<Project> {
 
   Project({required super.name, super.id});
 
-  List<Task> get tasks => _tasks;
+  List<Task> get tasks => List.unmodifiable(_tasks);
 
   void addTask(Task task) {
     if (_tasks.contains(task)) {

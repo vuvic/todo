@@ -13,7 +13,7 @@ abstract class WorkItem<T extends WorkItem<T>> {
 
   int? get id => _id;
   String get name => _name;
-  List<WorkItem> get children => _children;
+  List<WorkItem> get children => List.unmodifiable(_children);
   DateTime get creationTime => _creationTime;
 
   set name(String name) {
