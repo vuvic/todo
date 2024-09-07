@@ -10,6 +10,8 @@ abstract class WorkItemProvider<T extends WorkItem<dynamic>> extends Provider<T>
 
   WorkItemProvider(this.apiService);
 
+  List<T> get items => List.unmodifiable(_items);
+
   @override
   Future<void> fetchAll() async {
     try {
