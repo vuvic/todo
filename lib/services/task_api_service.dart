@@ -1,15 +1,14 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/task.dart';
+import 'api_service.dart';
 
-class TaskApiService {
-  final String baseUrl;
+class TaskApiService extends ApiService<Task> {
+  TaskApiService({required String baseUrl}) : super(baseUrl);
 
-  TaskApiService({required this.baseUrl});
-
-  Future<List<Task>> fetchTasks() async {
+  @override
+  Future<List<Task>> fetch() async {
     final response = await http.get(Uri.parse('$baseUrl/tasks'));
-
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
       return body.map((dynamic item) => Task.fromMap(item)).toList();
@@ -18,13 +17,13 @@ class TaskApiService {
     }
   }
 
-  Future<Task> createTask(Task task) async {
+  @override
+  Future<Task> create(Task item) async {
+    Map<String, dynamic> data = item.toMap();
     final response = await http.post(
       Uri.parse('$baseUrl/tasks'),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode(task.toMap()),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(data),
     );
 
     if (response.statusCode == 201) {
@@ -34,21 +33,25 @@ class TaskApiService {
     }
   }
 
-  Future<void> updateTask(Task task) async {
+  @override
+  Future<Task> update(Task item) async {
+    Map<String, dynamic> data = item.toMap();
     final response = await http.put(
-      Uri.parse('$baseUrl/tasks/${task.id}'),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode(task.toMap()),
+      Uri.parse('$baseUrl/tasks/$data.id'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(data),
     );
 
-    if (response.statusCode != 200) {
+    if (response.statusCode == 200) {
+      // Assuming the API returns the updated task in its response
+      return Task.fromMap(jsonDecode(response.body));
+    } else {
       throw Exception('Failed to update task');
     }
   }
 
-  Future<void> deleteTask(int id) async {
+  @override
+  Future<void> delete(int id) async {
     final response = await http.delete(Uri.parse('$baseUrl/tasks/$id'));
 
     if (response.statusCode != 200) {
