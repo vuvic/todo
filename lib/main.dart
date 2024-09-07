@@ -16,7 +16,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(
             create: (context) => TaskProvider(
-                  apiService: TaskApiService(baseUrl: dotenv.env['BASE_URL']!),
+                  TaskApiService(baseUrl: dotenv.env['BASE_URL']!),
                 )),
       ],
       child: const Todo(),
