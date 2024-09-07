@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:todo/models/task.dart';
 import 'package:todo/models/project.dart';
+import 'package:todo/extensions/date_time_extensions.dart';
 
 void main() {
   group(
@@ -15,7 +16,7 @@ void main() {
           id: 1,
           name: 'Mock Task 1',
           description: 'This is a mock task',
-          dueDate: DateTime.now(),
+          dueDate: DateTime.now().getEndOfDay(),
           priority: 1,
         );
         task2 = Task(
