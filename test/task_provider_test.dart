@@ -5,6 +5,7 @@ import 'package:todo/services/task_api_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:todo/models/task.dart';
 import 'package:mockito/mockito.dart';
+import 'package:todo/extensions/date_time_extensions.dart';
 
 // Generate mock for TaskApiService
 @GenerateMocks([TaskApiService])
@@ -27,7 +28,7 @@ void main() {
             id: 1,
             name: 'Mock Task 1',
             description: 'This is a mock task',
-            dueDate: DateTime.now(),
+            dueDate: DateTime.now().getEndOfDay(),
             priority: 1,
           ),
         ],
@@ -46,7 +47,7 @@ void main() {
             id: 1,
             name: 'Mock Task 1',
             description: 'This is a mock task',
-            dueDate: DateTime.now(),
+            dueDate: DateTime.now().getEndOfDay(),
             priority: 1,
           ),
           Task(
