@@ -8,7 +8,7 @@ class TaskProvider with ChangeNotifier {
 
   TaskProvider({required this.apiService});
 
-  List<Task> get tasks => _tasks;
+  List<Task> get tasks => List.unmodifiable(_tasks);
 
   Future<void> loadTasks() async {
     _tasks = await apiService.fetchTasks();
