@@ -1,5 +1,5 @@
-import './task.dart';
-import './work_item.dart';
+import 'task.dart';
+import 'work_item.dart';
 
 class Project extends WorkItem<Project> {
   final List<Task> _tasks = [];

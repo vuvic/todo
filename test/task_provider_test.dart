@@ -1,11 +1,11 @@
 // Import necessary packages
 import 'package:mockito/annotations.dart';
-import 'package:todo/providers/task_provider.dart';
-import 'package:todo/services/task_api_service.dart';
+import 'package:todo/core/providers/task_provider.dart';
+import 'package:todo/core/services/task_api_service.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:todo/models/task.dart';
+import 'package:todo/core/models/task.dart';
 import 'package:mockito/mockito.dart';
-import 'package:todo/extensions/date_time_extensions.dart';
+import 'package:todo/shared/utils/date_time_extensions.dart';
 
 // Generate mock for TaskApiService
 @GenerateMocks([TaskApiService])

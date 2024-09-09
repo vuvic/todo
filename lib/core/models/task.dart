@@ -1,4 +1,4 @@
-import './work_item.dart';
+import 'work_item.dart';
 
 class Task extends WorkItem<Task> {
   String _description;

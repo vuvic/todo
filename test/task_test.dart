@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:todo/models/task.dart';
-import 'package:todo/extensions/date_time_extensions.dart';
+import 'package:todo/core/models/task.dart';
+import 'package:todo/shared/utils/date_time_extensions.dart';
 
 void main() {
   group(
