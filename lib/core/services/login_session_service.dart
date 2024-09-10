@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthService {
+class LoginSessionService {
   static const String _isLoggedInKey = 'isLoggedIn';
 
   Future<void> saveLoginStatus(bool isLoggedIn) async {
