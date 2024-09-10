@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../features/upcoming_tasks_page.dart';
-import '../features/login_page.dart';
-import '../features/home_page.dart';
-import '../features//not_found_page.dart';
+import 'features/upcoming_tasks_page.dart';
+import 'features/login_page.dart';
+import 'features/home_page.dart';
+import 'features/not_found_page.dart';
 
 class AppRoutes {
   static const String home = '/';
